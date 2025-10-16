@@ -29,6 +29,9 @@ def login_page(request):
 
 @login_required_decorator
 def home_page(request):
+    faculties =
+
+
     return render(request, 'index.html')
 
 
