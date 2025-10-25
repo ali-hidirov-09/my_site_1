@@ -16,15 +16,15 @@ def dict_fetchone(cursor):
 
 
 def get_faculties():
-    with closing(connection.cursor) as cursor:
-        cursor.exesute("""SELECT * FROM adminapp_faculty""")
+    with closing(connection.cursor()) as cursor:
+        cursor.execute("""SELECT * FROM adminapp_faculty""")
         faculties = dict_fetchall(cursor)  # dictga o'tkazish
         return faculties
 
 
 def get_kafedra():
-    with closing(connection.cursor) as cursor:
-        cursor.exesute("""SELECT * FROM adminapp_kafedra""")
+    with closing(connection.cursor()) as cursor:
+        cursor.execute("""SELECT * FROM adminapp_kafedra""")
         kafedra = dict_fetchall(cursor)  # dictga o'tkazish
         return kafedra
 
