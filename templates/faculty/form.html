@@ -28,12 +28,13 @@
                             </div>
                             <div class="card-body card-block">
                                 <form method="post">
-                                    {% csrf_token %}
-                                    <div class="form-group">
-                                        <label class=" form-control-label">Name</label>
-                                        {{ form.name }}
-                                    </div>
-
+                                        {% csrf_token %}
+                                        {% for field in form %}
+                                            <div class="form-group">
+                                                <label class="form-control-label">{{ field.label }}</label>
+                                                {{ field }}
+                                            </div>
+                                        {% endfor %}
                                     {% if model %}
                                     <button type="submit" class="btn btn-warning btn-md">Save</button>
                                     {% else %}
