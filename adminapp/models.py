@@ -9,7 +9,7 @@ class Faculty(models.Model):
 
 class Kafedra(models.Model):
     name = models.CharField(max_length=100, null=False, blank=False)
-    faculty = models.ForeignKey(Faculty.name, on_delete=models.CASCADE, related_name="kafedralar")
+    faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE, related_name="kafedralar", null=True)
 
     def __str__(self):
         return self.name
@@ -17,7 +17,7 @@ class Kafedra(models.Model):
 
 class Subject(models.Model):
     name = models.CharField(max_length=100)
-    kafedra = models.ForeignKey(Kafedra.name, on_delete=models.CASCADE, related_name="fanlar")
+    kafedra = models.ForeignKey(Kafedra, on_delete=models.CASCADE, related_name="fanlar", null=True)
 
     def __str__(self):
         return self.name
@@ -25,8 +25,8 @@ class Subject(models.Model):
 
 class Teacher(models.Model):
     full_name = models.CharField(max_length=100)
-    kafedra = models.ForeignKey(Kafedra.name, on_delete=models.CASCADE, related_name="t_kafedra")
-    subjects = models.ManyToManyField(Subject.name, related_name="t_subject")
+    kafedra = models.ForeignKey(Kafedra, on_delete=models.CASCADE, related_name="t_kafedra", null=True)
+    subjects = models.ManyToManyField(Subject, related_name="t_subject")
 
     def __str__(self):
         return self.full_name
@@ -34,7 +34,7 @@ class Teacher(models.Model):
 
 class Group(models.Model):
     name = models.CharField(max_length=100)
-    subject = models.ManyToManyField(Subject.name, related_name="g_subject")
+    subject = models.ManyToManyField(Subject, related_name="g_subject")
 
     def __str__(self):
         return self.name
@@ -42,7 +42,7 @@ class Group(models.Model):
 
 class Student(models.Model):
     full_name = models.CharField(max_length=100)
-    group = models.ForeignKey(Group.name, on_delete=models.CASCADE, related_name="st_group")
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name="st_group", null=True)
 
     def __str__(self):
         return self.full_name

@@ -47,8 +47,9 @@ class TeacherForm(forms.ModelForm):
             "full_name": "Ustozning ismi",
         }
         widgets = {
-            "name": forms.TextInput(attrs={'class': 'form-control'}),
-            "subjects": forms.Select(attrs={'class': 'form-select'})
+            "full_name": forms.TextInput(attrs={'class': 'form-control'}),
+            "subjects": forms.SelectMultiple(attrs={'class': 'form-select'}),
+            "kafedra": forms.Select(attrs={'class': 'form-select'}),
         }
 
 
@@ -61,7 +62,7 @@ class GroupForm(forms.ModelForm):
         }
         widgets = {
             "name": forms.TextInput(attrs={'class': 'form-control'}),
-            "subject": forms.Select(attrs={'class': 'form-select'})
+            "subject": forms.SelectMultiple(attrs={'class': 'form-select'})
         }
 
 
@@ -73,6 +74,6 @@ class StudentForm(forms.ModelForm):
             "full_name": "Talaba ismi",
         }
         widgets = {
-            "name": forms.TextInput(attrs={'class': 'form-control'}),
+            "full_name": forms.TextInput(attrs={'class': 'form-control'}),
             "group": forms.Select(attrs={'class': 'form-select'})
         }

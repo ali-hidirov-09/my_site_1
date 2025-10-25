@@ -39,10 +39,18 @@ def home_page(request):
     """ asosiy bet"""
     faculties = get_faculties()
     kafedras = get_kafedra()
+    subjects = get_subject()
+    teachers = get_teacher()
+    groups = get_group()
+    students = get_student()
     ctx = {
         'counts': {
         "faculties": len(faculties),
-        "kafedras": len(kafedras)
+        "kafedras": len(kafedras),
+        "subjects": len(subjects),
+        "teachers": len(teachers),
+        "groups": len(groups),
+        "students": len(students),
         }
     }
     return render(request, 'index.html', ctx)
@@ -60,7 +68,7 @@ class SignUpView(generic.CreateView):
 def faculty_create(request):
     """ faculted yaratadigan funcsiya """
     model = Faculty()
-    form = FacultyForm(request.POST, instance=model)  # modelga saqlaydi
+    form = FacultyForm(request.POST)  # modelga saqlaydi
     if request.POST and form.is_valid():
         form.save()
         return redirect("faculty_list")
@@ -108,7 +116,7 @@ def faculty_list(request):
 def kafedra_create(request):
     """ Kafedra yaratish"""
     model = Kafedra()
-    form = KafedraForm(request.POST or None, instance=model)
+    form = KafedraForm(request.POST or None)
     if request.POST and form.is_valid():
         form.save()
         return redirect("kafedra_list")
@@ -156,7 +164,7 @@ def kafedra_list(request):
 def subject_create(request):
     """ subject yaratish"""
     model = Subject
-    form = SubjectForm(request.POST or None, instance=model)
+    form = SubjectForm(request.POST or None)
     if request.POST and form.is_valid():
         form.save()
         return redirect("subject_list")
@@ -229,12 +237,15 @@ def teacher_edit(request, pk):
 def teacher_create(request):
     """ teacher qo'shish"""
     model = Teacher
-    form = TeacherForm(request.POST or None, instance=model)
-    if request.POST and form.is_valid():
-        form.save()
+    form = TeacherForm(request.POST or None)
+    if request.method == "POST" and form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        form.save_m2m()
         return redirect("teacher_list")
     ctx = {
-        "form":form
+        "form":form,
+        "model": None
     }
     return  render(request, "teacher/form.html", ctx)
 
@@ -252,9 +263,11 @@ def teacher_delete(request, pk):
 def group_create(request):
     """ gruppa qo'shish"""
     model = Group
-    form = GroupForm(request.POST or None, instance=model)
+    form = GroupForm(request.POST or None)
     if request.POST and form.is_valid():
-        form.save()
+        instance = form.save(commit=False)
+        instance.save()
+        form.save_m2m()
         return redirect("group_list")
     ctx = {
         "form":form
@@ -324,7 +337,7 @@ def student_edit(request, pk):
 def student_create(request):
     """ student qo'shish"""
     model = Student
-    form = StudentForm(request.POST or None, instance=model)
+    form = StudentForm(request.POST or None)
     if request.POST and form.is_valid():
         form.save()
         return redirect("student_list")
