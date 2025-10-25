@@ -55,6 +55,7 @@ class SignUpView(generic.CreateView):
     template_name = "signup.html"
 
 
+"""FACULTED"""
 @login_required_decorator
 def faculty_create(request):
     """ faculted yaratadigan funcsiya """
@@ -101,9 +102,11 @@ def faculty_list(request):
     }
     return  render(request, 'faculty/list.html', ctx)
 
-# Kafedra
+
+"""Kafedra"""
 @login_required_decorator
 def kafedra_create(request):
+    """ Kafedra yaratish"""
     model = Kafedra()
     form = KafedraForm(request.POST or None, instance=model)
     if request.POST and form.is_valid():
@@ -114,8 +117,10 @@ def kafedra_create(request):
     }
     return  render(request, "kafedra/form.html", ctx)
 
+
 @login_required_decorator
 def kafedra_edit(request, pk):
+    """ Kafedralarni ozgartirish """
     model = Kafedra.objects.get(pk=pk)
     form = KafedraForm(request.POST or None, instance=model)
     if request.POST and form.is_valid():
@@ -130,12 +135,15 @@ def kafedra_edit(request, pk):
 
 @login_required_decorator
 def kafedra_delete(request, pk):
+    """ Kafedralarni o'chirish"""
     model = Kafedra.objects.get(pk=pk)
     model.delete()
     return  redirect('kafedra_list')
 
+
 @login_required_decorator
 def kafedra_list(request):
+    """ Kafedralar listini chiqaradi"""
     kafedras = get_kafedra()
     ctx = {
         "kafedras": kafedras

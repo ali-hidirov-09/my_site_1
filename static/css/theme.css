@@ -1151,6 +1151,12 @@ section {
     border-radius: 2px;
 }
 
+.form-select {
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+
 .card {
     margin-bottom: 30px;
 }

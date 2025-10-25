@@ -28,3 +28,30 @@ def get_kafedra():
         kafedra = dict_fetchall(cursor)  # dictga o'tkazish
         return kafedra
 
+
+def get_subject():
+    with closing(connection.cursor()) as cursor:
+        cursor.execute("""SELECT * FROM adminapp_subject""")
+        subject = dict_fetchall(cursor)  # dictga o'tkazish
+        return subject
+
+
+def get_teacher():
+    with closing(connection.cursor()) as cursor:
+        cursor.execute("""SELECT * FROM adminapp_teacher""")
+        teacher = dict_fetchall(cursor)  # dictga o'tkazish
+        return teacher
+
+
+def get_group():
+    with closing(connection.cursor()) as cursor:
+        cursor.execute("""SELECT * FROM adminapp_group""")
+        group = dict_fetchall(cursor)  # dictga o'tkazish
+        return group
+
+
+def get_student():
+    with closing(connection.cursor()) as cursor:
+        cursor.execute("""SELECT * FROM adminapp_student""")
+        student = dict_fetchall(cursor)  # dictga o'tkazish
+        return student
