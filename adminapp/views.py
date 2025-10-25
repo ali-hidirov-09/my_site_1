@@ -151,6 +151,194 @@ def kafedra_list(request):
     return render(request, "kafedra/list.html", ctx)
 
 
+"""Subject"""
+@login_required_decorator
+def subject_create(request):
+    """ subject yaratish"""
+    model = Subject
+    form = SubjectForm(request.POST or None, instance=model)
+    if request.POST and form.is_valid():
+        form.save()
+        return redirect("subject_list")
+    ctx = {
+        "form":form
+    }
+    return  render(request, "subject/form.html", ctx)
 
+
+@login_required_decorator
+def subject_delete(request, pk):
+    """ fanlarni o'chirish"""
+    model = Subject.objects.get(pk=pk)
+    model.delete()
+    return  redirect('subject_list')
+
+
+@login_required_decorator
+def subject_edit(request, pk):
+    """ subjectlarni ozgartirish """
+    model = Subject.objects.get(pk=pk)
+    form = SubjectForm(request.POST or None, instance=model)
+    if request.POST and form.is_valid():
+        form.save()
+        return redirect("subject_list")
+    ctx = {
+        "model": model,
+        "form": form
+    }
+    return  render(request, "subject/form.html", ctx)
+
+
+@login_required_decorator
+def subject_list(request):
+    """ subjectlar listini chiqaradi"""
+    subjects = get_subject()
+    ctx = {
+        "subjects": subjects
+    }
+    return render(request, "subject/list.html", ctx)
+
+
+"""Teacher"""
+@login_required_decorator
+def teacher_list(request):
+    """ o'qituvchilar listini chiqaradi"""
+    teachers = get_teacher()
+    ctx = {
+        "teachers": teachers
+    }
+    return render(request, "teacher/list.html", ctx)
+
+
+@login_required_decorator
+def teacher_edit(request, pk):
+    """ o'qituvchilarni ozgartirish """
+    model = Teacher.objects.get(pk=pk)
+    form = TeacherForm(request.POST or None, instance=model)
+    if request.POST and form.is_valid():
+        form.save()
+        return redirect("teacher_list")
+    ctx = {
+        "model": model,
+        "form": form
+    }
+    return  render(request, "teacher/form.html", ctx)
+
+
+@login_required_decorator
+def teacher_create(request):
+    """ teacher qo'shish"""
+    model = Teacher
+    form = TeacherForm(request.POST or None, instance=model)
+    if request.POST and form.is_valid():
+        form.save()
+        return redirect("teacher_list")
+    ctx = {
+        "form":form
+    }
+    return  render(request, "teacher/form.html", ctx)
+
+
+@login_required_decorator
+def teacher_delete(request, pk):
+    """ o'qituvchini o'chirish"""
+    model = Teacher.objects.get(pk=pk)
+    model.delete()
+    return  redirect('teacher_list')
+
+
+"""Group"""
+@login_required_decorator
+def group_create(request):
+    """ gruppa qo'shish"""
+    model = Group
+    form = GroupForm(request.POST or None, instance=model)
+    if request.POST and form.is_valid():
+        form.save()
+        return redirect("group_list")
+    ctx = {
+        "form":form
+    }
+    return  render(request, "group/form.html", ctx)
+
+
+@login_required_decorator
+def group_delete(request, pk):
+    """ gruppani o'chirish"""
+    model = Group.objects.get(pk=pk)
+    model.delete()
+    return  redirect('group_list')
+
+
+@login_required_decorator
+def group_edit(request, pk):
+    """ gruppalarni ozgartirish """
+    model = Group.objects.get(pk=pk)
+    form = GroupForm(request.POST or None, instance=model)
+    if request.POST and form.is_valid():
+        form.save()
+        return redirect("group_list")
+    ctx = {
+        "model": model,
+        "form": form
+    }
+    return  render(request, "group/form.html", ctx)
+
+
+@login_required_decorator
+def group_list(request):
+    """ gruppalar listini chiqaradi"""
+    groups = get_group()
+    ctx = {
+        "groups": groups
+    }
+    return render(request, "group/list.html", ctx)
+
+
+"""Student"""
+@login_required_decorator
+def student_list(request):
+    """ studentlar listini chiqaradi"""
+    students = get_student()
+    ctx = {
+        "students": students
+    }
+    return render(request, "student/list.html", ctx)
+
+
+@login_required_decorator
+def student_edit(request, pk):
+    """ studentlarni ozgartirish """
+    model = Student.objects.get(pk=pk)
+    form = StudentForm(request.POST or None, instance=model)
+    if request.POST and form.is_valid():
+        form.save()
+        return redirect("student_list")
+    ctx = {
+        "model": model,
+        "form": form
+    }
+    return  render(request, "student/form.html", ctx)
+
+@login_required_decorator
+def student_create(request):
+    """ student qo'shish"""
+    model = Student
+    form = StudentForm(request.POST or None, instance=model)
+    if request.POST and form.is_valid():
+        form.save()
+        return redirect("student_list")
+    ctx = {
+        "form":form
+    }
+    return  render(request, "student/form.html", ctx)
+
+
+@login_required_decorator
+def student_delete(request, pk):
+    """ gruppani o'chirish"""
+    model = Student.objects.get(pk=pk)
+    model.delete()
+    return  redirect('student_list')
 
 
